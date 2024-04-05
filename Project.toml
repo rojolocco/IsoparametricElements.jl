@@ -1,0 +1,13 @@
+name = "IsoparametricElements"
+uuid = "e04ee02d-1543-450a-8e9b-b1b5ab31155f"
+authors = ["Christian Garcia <rojolocco@gmail.com> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
