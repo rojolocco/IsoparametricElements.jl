@@ -1,52 +1,68 @@
-# create abstract type named RefElement
-abstract type RefElement end
+# Create abstract type named AbstractIsoElement
+abstract type AbstractIsoElement end
 
 
-#create abstract type named Element1D that is a subtype of RefElement
-abstract type Elements1D <: RefElement end
-abstract type Elements2D <: RefElement end
-abstract type Elements3D <: RefElement end
+# Create abstract typeLinear, Linearar, Lineared AbstractDimension with a parameter named dims
+abstract type AbstractDimension{dims} end
+
+const Dim1 = AbstractDimension{1}
+const Dim2 = AbstractDimension{2}
+const Dim3 = AbstractDimension{3}
 
 
-#create abstract type named Line that is a subtype of Elements1D
-abstract type Line <: Elements1D end
+# Create abstract type named AbstractShape with a parameter named shape
+abstract type AbstractShape{dims} end
+
+struct Line{dims<:Dim1} <: AbstractShape{dims} end
+struct Quadrilateral{dims<:Dim2} <: AbstractShape{dims} end
+struct Triangle{dims<:Dim2} <: AbstractShape{dims} end
+struct Hexahedron{dims<:Dim3} <: AbstractShape{dims} end
+struct Tetrahedron{dims<:Dim3} <: AbstractShape{dims} end
 
 
-#create abstract type named Quadrilateral and triangle that is a subtype of Elements2D
-abstract type Quadrilateral <: Elements2D end
-abstract type Triangle <: Elements2D end
+# Create abstract type named AbstractOrder with a parameter named order
+abstract type AbstractOrder{order} end
+
+const LinearOrder = AbstractOrder{1}
+const QuadraticOrder = AbstractOrder{2}
+const CubicOrder = AbstractOrder{3}
+const QuarticOrder = AbstractOrder{4}
+const FithOrder = AbstractOrder{5}
 
 
-#create abstract type named Hexahedron and Tetrahedron that is a subtype of Elements3D
-abstract type Hexahedron <: Elements3D end
-abstract type Tetrahedron <: Elements3D end
+# Create abstract type named AbstractInterpolation
+abstract type AbstractInterpolation end
+
+struct Lagrange <: AbstractInterpolation end
+struct Serendipity <: AbstractInterpolation end
 
 
-#create abstract type named ContinuousLine from Line
-abstract type ContinuousLine <: Line end
-abstract type DiscontinuousLine <: Line end
-abstract type HybridizableDiscontinuousLine <: Line end
+# Create abstract type named AbstractInterPoints
+abstract type AbstractInterPoints end
+
+struct LobatoPoints <: AbstractInterPoints end
+struct ChevyshevPoints <: AbstractInterPoints end
 
 
-#create abstract type named ContinuousLine from Quadrlateral
-abstract type ContinuousQuadrilateral <: Quadrilateral end
-abstract type DiscontinuousQuadrilateral <: Quadrilateral end
-abstract type HybridizableDiscontinuousQuadrilateral <: Quadrilateral end
+# Create abstract type named AbstractField
+abstract type AbstractField end
+
+struct ScalarField <: AbstractField end
+struct VectorField <: AbstractField end
+struct TraceField <: AbstractField end
 
 
-#create abstract type named ContinuousLine from Triangle
-abstract type ContinuousTriangle <: Triangle end
-abstract type DiscontinuousTriangle <: Triangle end
-abstract type HybridizableDiscontinuousTriangle <: Triangle end
+# Create abstract type named AbstractCoords
+abstract type AbstractCoords end
+
+struct CartesianCoords <: AbstractCoords end
+struct PolarCoords <: AbstractCoords end
+struct AxysimmetricCoords <: AbstractCoords end
 
 
-#create abstract type named ContinuousLine from Hexahedron
-abstract type ContinuousHexahedron <: Hexahedron end
-abstract type DiscontinuousHexahedron <: Hexahedron end
-abstract type HybridizableDiscontinuousHexahedron <: Hexahedron end
+# Create abstract type named AbstractContinuity
+abstract type AbstractContinuity end
 
-
-#create abstract type named ContinuousLine from Tetrahedron
-abstract type ContinuousTetrahedron <: Tetrahedron end
-abstract type DiscontinuousTetrahedron <: Tetrahedron end
-abstract type HybridizableDiscontinuousTetrahedron <: Tetrahedron end
+struct Continuous <: AbstractContinuity end
+struct Discontinuous <: AbstractContinuity end
+struct HybridizableDiscontinuous <: AbstractContinuity end

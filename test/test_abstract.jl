@@ -1,80 +1,98 @@
 using IsoparametricElements
 using Test
 
-@testset "Main Type" begin
-    @test RefElement <: Any
-end
+# Define the test cases
+abstract_types = (AbstractIsoElement,
+    AbstractDimension,
+    AbstractShape)
 
+dimension_types = (Dim1, Dim2, Dim3)
 
-@testset "Subtypes of RefElement" begin
-    @test Elements1D <: RefElement
-    @test Elements2D <: RefElement
-    @test Elements3D <: RefElement
-    # @test isequal(subtypes(RefElement), [Elements1D, Elements2D, Elements3D])
-end
+shape_types = (Line,
+    Quadrilateral,
+    Triangle,
+    Hexahedron,
+    Tetrahedron)
 
+order_types = (LinearOrder,
+    QuadraticOrder,
+    CubicOrder,
+    QuarticOrder,
+    FithOrder)
 
-@testset "Subtypes of Element1D" begin
-    @test Line <: Elements1D
-    # @test isequal(subtypes(RefElement), [Elements1D, Elements2D, Elements3D])
-end
+interpolation_type = (
+    Lagrange, 
+    Serendipity
+)
 
+interpoints_type = (
+    LobatoPoints,
+    ChevyshevPoints
+)
 
-@testset "Subtypes of Element2D" begin
-    @test Quadrilateral <: Elements2D
-    @test Triangle <: Elements2D
-    # @test isequal(subtypes(RefElement), [Elements1D, Elements2D, Elements3D])
-end
+field_type = (
+    ScalarField,
+    VectorField,
+    TraceField
+)
 
+coords_type =(
+    CartesianCoords, 
+    PolarCoords, 
+    AxysimmetricCoords
+)
 
-@testset "Subtypes of Element3D" begin
-    @test Hexahedron <: Elements3D
-    @test Tetrahedron <: Elements3D
-    # @test isequal(subtypes(RefElement), [Elements1D, Elements2D, Elements3D])
-end
+continuity_type = (
+    Continuous,
+    Discontinuous,
+    HybridizableDiscontinuous
+)
 
+# Define the tests
+@testset "Abstract Tests" begin
+    # Test that each abstract type is a subtype of Any
+    for abstract in abstract_types
+        @test abstract <: Any
+    end
 
-@testset "Subtypes of Element3D" begin
-    @test Hexahedron <: Elements3D
-    @test Tetrahedron <: Elements3D
-    # @test isequal(subtypes(RefElement), [Elements1D, Elements2D, Elements3D])
-end
+    # Test that each dimension type is a subtype of AbstractDimension and has the correct dimension
+    for (i, dim) in enumerate(dimension_types)
+        @test dim <: AbstractDimension
+        @test dim <: AbstractDimension{i}
+    end
 
+    # Test that each shape type is a subtype of AbstractShape
+    for shape in shape_types
+        @test shape <: AbstractShape
+    end
 
-@testset "Subtypes of Line" begin
-    @test ContinuousLine <: Line
-    @test DiscontinuousLine <: Line
-    @test HybridizableDiscontinuousLine <: Line
-    # @test isequal(subtypes(RefElement), [Elements1D, Elements2D, Elements3D])
-end
+    # Test that each order type is a subtype of AbstractOrder and has the correct order
+    for (i, order) in enumerate(order_types)
+        @test order <: AbstractOrder
+        @test order <: AbstractOrder{i}
+    end
 
-@testset "Subtypes of Quadrilateral" begin
-    @test ContinuousQuadrilateral <: Quadrilateral
-    @test DiscontinuousQuadrilateral <: Quadrilateral
-    @test HybridizableDiscontinuousQuadrilateral <: Quadrilateral
-    # @test isequal(subtypes(RefElement), [Elements1D, Elements2D, Elements3D])
-end
+    # Test that each interpolation type is a subtype of AbstractInterpolation
+    for interpolation in interpolation_type
+        @test interpolation <: AbstractInterpolation
+    end
 
+    # Test that each interpoints type is a subtype of AbstractInterPoints
+    for interpoints in interpoints_type
+        @test interpoints <: AbstractInterPoints
+    end
 
-@testset "Subtypes of Triangle" begin
-    @test ContinuousTriangle <: Triangle
-    @test DiscontinuousTriangle <: Triangle
-    @test HybridizableDiscontinuousTriangle <: Triangle
-    # @test isequal(subtypes(RefElement), [Elements1D, Elements2D, Elements3D])
-end
+    # Test that each field type is a subtype of AbstractField
+    for field in field_type
+        @test field <: AbstractField
+    end
+    # Test that each coords type is a subtype of AbstractCoords
+    for coords in coords_type
+        @test coords <: AbstractCoords
+    end
 
-
-@testset "Subtypes of Hexahedron" begin
-    @test ContinuousHexahedron <: Hexahedron
-    @test DiscontinuousHexahedron <: Hexahedron
-    @test HybridizableDiscontinuousHexahedron <: Hexahedron
-    # @test isequal(subtypes(RefElement), [Elements1D, Elements2D, Elements3D])
-end
-
-
-@testset "Subtypes of Tetrahedron" begin
-    @test ContinuousTetrahedron <: Tetrahedron
-    @test DiscontinuousTetrahedron <: Tetrahedron
-    @test HybridizableDiscontinuousTetrahedron <: Tetrahedron
-    # @test isequal(subtypes(RefElement), [Elements1D, Elements2D, Elements3D])
+    # Test that each continuity type is a subtype of AbstractContinuity
+    for continuity in continuity_type
+        @test continuity <: AbstractContinuity
+    end
 end
